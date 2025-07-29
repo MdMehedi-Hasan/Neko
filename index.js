@@ -1,12 +1,13 @@
 const express = require("express");
 const { default: mongoose } = require("mongoose");
 const Product = require("./models/product.model");
+const dotEnv = require("dotenv");
 const app = express();
 const port = 3000;
 app.use(express.json());
+dotEnv.config();
 
-const uri =
-  "mongodb+srv://mh19115:xpNrmCImfJzeXJes@mvc1.t7slf8z.mongodb.net/?retryWrites=true&w=majority&appName=mvc1";
+const uri = process.env.MONGODB_CONNECTION_URL;
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
