@@ -1,24 +1,11 @@
 const express = require('express');
 const Product = require('../models/product.model');
-const { getProducts } = require('../controllers/product.controller');
+const { getProducts, getProductById } = require('../controllers/product.controller');
 const router = express.Router()
 
 router.get("/", getProducts);
 
-router.get("/api/product/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const product = await Product.findById(id);
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-    res.status(200).json(product);
-  } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Error fetching product", error: err.message });
-  }
-});
+router.get("/:id", getProductById);
 
 router.post("/api/product", async (req, res) => {
   try {
